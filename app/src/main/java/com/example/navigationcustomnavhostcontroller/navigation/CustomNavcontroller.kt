@@ -7,7 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.navOptions
 import com.example.navigationcustomnavhostcontroller.navigation.destinations.CustomNavDestinations
-import com.example.navigationcustomnavhostcontroller.navigation.first_graph.Screens
+import com.example.navigationcustomnavhostcontroller.ui.screens.ScreensDestinationsFirstGraph
 
 @Composable
 fun rememberCustomNavController(navController: NavHostController): CustomNavController {
@@ -22,8 +22,7 @@ class CustomNavController(private val navController: NavHostController) {
         route: String? = null,
         navOptionsBuilder: (NavOptionsBuilder.() -> Unit)? = null,
     ) {
-//        Timber.tag("Routing").d("routes  ${destinations?.route} $route")
-        navController.navigate(route ?: destinations?.route ?: Screens.First.route) {
+        navController.navigate(route ?: destinations?.route ?: ScreensDestinationsFirstGraph.FirstGraph.route) {
             navOptionsBuilder?.invoke(this)
         }
     }

@@ -4,22 +4,26 @@ import android.net.Uri
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptionsBuilder
 import com.example.navigationcustomnavhostcontroller.navigation.destinations.CustomNavDestinations
-import com.example.navigationcustomnavhostcontroller.navigation.first_graph.FirstGraphFirstScreen
-import com.example.navigationcustomnavhostcontroller.navigation.first_graph.FirstGraphSecondScreen
-import com.example.navigationcustomnavhostcontroller.navigation.first_graph.FirstGraphThirdScreen
-import com.example.navigationcustomnavhostcontroller.navigation.first_graph.FirstScreenDestination
-import com.example.navigationcustomnavhostcontroller.navigation.first_graph.SecondScreenDestination
-import com.example.navigationcustomnavhostcontroller.navigation.first_graph.ThirdScreenDestination
+import com.example.navigationcustomnavhostcontroller.ui.screens.AuthGraphFirstScreen
+import com.example.navigationcustomnavhostcontroller.ui.screens.AuthGraphSecondScreen
+import com.example.navigationcustomnavhostcontroller.ui.screens.AuthGraphThirdScreen
+import com.example.navigationcustomnavhostcontroller.ui.screens.AuthGraphFirstScreenDestination
+import com.example.navigationcustomnavhostcontroller.ui.screens.AuthGraphSecondScreenDestination
+import com.example.navigationcustomnavhostcontroller.ui.screens.AuthGraphThirdScreenDestination
+import com.example.navigationcustomnavhostcontroller.ui.screens.MainGraphFirstScreen
+import com.example.navigationcustomnavhostcontroller.ui.screens.MainGraphFirstScreenDestination
+import com.example.navigationcustomnavhostcontroller.ui.screens.MainGraphSecondScreen
+import com.example.navigationcustomnavhostcontroller.ui.screens.MainGraphSecondScreenDestination
 
-fun NavGraphBuilder.firstNavGraph(
+fun NavGraphBuilder.authNavGraph(
     navigateToDestination: (CustomNavDestinations, String?, (NavOptionsBuilder.() -> Unit)?) -> Unit,
     navigateByDeepLink: (Uri, (NavOptionsBuilder.() -> Unit)?) -> Unit,
 ) {
     customComposable(
-        destinations = SecondScreenDestination,
+        destinations = AuthGraphSecondScreenDestination,
         content = {
-            FirstGraphSecondScreen(navigateToThirdScreens = {
-                navigateToDestination(ThirdScreenDestination, null) {
+            AuthGraphSecondScreen(navigateToThirdScreens = {
+                navigateToDestination(AuthGraphThirdScreenDestination, null) {
 //                    popUpTo(route = SPLASH_SCREEN) { inclusive = true }
 
                 }
@@ -27,11 +31,11 @@ fun NavGraphBuilder.firstNavGraph(
         })
 
     customComposable(
-        destinations = FirstScreenDestination,
+        destinations = AuthGraphFirstScreenDestination,
         content = {
-            FirstGraphFirstScreen(navigateToSecondScreen = {
+            AuthGraphFirstScreen(navigateToSecondScreen = {
                 navigateToDestination(
-                    SecondScreenDestination,
+                    AuthGraphSecondScreenDestination,
                     null
                 ) {}
             })
@@ -39,11 +43,11 @@ fun NavGraphBuilder.firstNavGraph(
         }
     )
     customComposable(
-        destinations = ThirdScreenDestination,
+        destinations = AuthGraphThirdScreenDestination,
         content = {
-            FirstGraphThirdScreen(navigateToFirstScreen = {
+            AuthGraphThirdScreen(navigateToFirstScreen = {
                 navigateToDestination(
-                    FirstScreenDestination,
+                    MainGraphFirstScreenDestination,
                     null
                 ) {}
             })
@@ -52,8 +56,30 @@ fun NavGraphBuilder.firstNavGraph(
     )
 }
 
-fun NavGraphBuilder.secondNavGraph(
+fun NavGraphBuilder.mainNavGraph(
     navigateToDestination: (CustomNavDestinations, String?, (NavOptionsBuilder.() -> Unit)?) -> Unit,
     navigateByDeepLink: (Uri, (NavOptionsBuilder.() -> Unit)?) -> Unit,
 ) {
+
+    customComposable(
+        destinations = MainGraphFirstScreenDestination,
+        content = {
+            MainGraphFirstScreen(navigateToSecondScreen =  {
+                navigateToDestination(MainGraphSecondScreenDestination, null) {
+                }
+            })
+        })
+
+    customComposable(
+        destinations = MainGraphFirstScreenDestination,
+        content = {
+            MainGraphSecondScreen(navigateToThirdScreens =  {
+                navigateToDestination(
+                    AuthGraphSecondScreenDestination,
+                    null
+                ) {}
+            })
+
+        }
+    )
 }

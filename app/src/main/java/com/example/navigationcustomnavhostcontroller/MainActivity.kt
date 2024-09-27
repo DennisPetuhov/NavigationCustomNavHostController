@@ -24,10 +24,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.example.navigationcustomnavhostcontroller.navigation.MainScreens
 import com.example.navigationcustomnavhostcontroller.navigation.builders.CustomNavHost
-import com.example.navigationcustomnavhostcontroller.navigation.builders.firstNavGraph
-import com.example.navigationcustomnavhostcontroller.navigation.builders.secondNavGraph
-import com.example.navigationcustomnavhostcontroller.navigation.first_graph.FirstScreenDestination
+import com.example.navigationcustomnavhostcontroller.navigation.builders.authNavGraph
+import com.example.navigationcustomnavhostcontroller.navigation.builders.mainNavGraph
 import com.example.navigationcustomnavhostcontroller.navigation.rememberCustomNavController
+import com.example.navigationcustomnavhostcontroller.ui.screens.AuthGraphFirstScreenDestination
 import com.example.navigationcustomnavhostcontroller.ui.theme.NavigationCustomNavHostControllerTheme
 
 class MainActivity : ComponentActivity() {
@@ -37,7 +37,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             NavigationCustomNavHostControllerTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    MyMainScreen()
+                    MainEnter()
                 }
             }
         }
@@ -45,7 +45,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-private fun MyMainScreen() {
+private fun MainEnter() {
     val navController = rememberNavController()
     val customNavController = rememberCustomNavController(navController)
     Column(modifier = Modifier) {
@@ -60,15 +60,10 @@ private fun MyMainScreen() {
                 .height(300.dp)
                 .background(color = Color.Magenta)
         ) {
-            Button(onClick = { navController.navigate(MainScreens.FirstNavGraph.route) }) {
-                Text(text = "TO first GRAPH")
-
-            }
-            Button(onClick = { navController.navigate(MainScreens.SecondNavGraph.route) }) {
-                Text(text = "TO second GRAPH")
-
-            }
-
+            Button(onClick = { navController.navigate(MainScreens.FirstNavGraph.route) })
+            { Text(text = "TO first GRAPH") }
+            Button(onClick = { navController.navigate(MainScreens.SecondNavGraph.route) }
+            ) { Text(text = "TO second GRAPH") }
         }
         Row(
             modifier = Modifier
@@ -78,20 +73,17 @@ private fun MyMainScreen() {
         ) {
             CustomNavHost(
                 navController = navController,
-                startDestination = remember { FirstScreenDestination }
+                startDestination = remember { AuthGraphFirstScreenDestination }
             ) {
-                secondNavGraph(
+                authNavGraph(
                     navigateToDestination = customNavController::navigate,
                     navigateByDeepLink = customNavController::navigate
                 )
-                firstNavGraph(
+                mainNavGraph(
                     navigateToDestination = customNavController::navigate,
                     navigateByDeepLink = customNavController::navigate
                 )
-
             }
-
-
         }
     }
 }

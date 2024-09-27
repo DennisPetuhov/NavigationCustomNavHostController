@@ -68,5 +68,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     //navigation component
     implementation (libs.androidx.navigation.compose)
+    implementation("com.squareup.leakcanary:leakcanary-android:2.14")
+
 
 }

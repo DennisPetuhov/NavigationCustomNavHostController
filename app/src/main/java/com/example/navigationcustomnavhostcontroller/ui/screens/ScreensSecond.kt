@@ -1,6 +1,5 @@
 package com.example.navigationcustomnavhostcontroller.ui.screens
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,24 +21,20 @@ import com.example.navigationcustomnavhostcontroller.navigation.animations.Slidi
 import com.example.navigationcustomnavhostcontroller.navigation.destinations.CustomNavDestinations
 
 sealed class ScreensDestinationsMainGraph(val route: String) {
-    data object First : ScreensDestinationsMainGraph("second_first")
-    data object MainGraph : ScreensDestinationsMainGraph("second_second")
-    data object Third : ScreensDestinationsMainGraph("second_third")
-
+    data object FirstScreen : ScreensDestinationsMainGraph("second_first")
+    data object SecondScreen : ScreensDestinationsMainGraph("second_second")
 }
 
-object MainGraphFirstScreenDestination : CustomNavDestinations, CustomNavAnimations by SlidingAnimations {
-    override val route = ScreensDestinationsMainGraph.First.route
+object MainGraphFirstScreenDestination : CustomNavDestinations,
+    CustomNavAnimations by SlidingAnimations {
+    override val route = ScreensDestinationsMainGraph.FirstScreen.route
     override val arguments: List<NamedNavArgument> = emptyList()
 }
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun MainGraphFirstScreen(
     navigateToSecondScreen: () -> Unit,
-
-    ) {
-
+) {
     Column(modifier = Modifier) {
         Row(
             modifier = Modifier
@@ -48,35 +43,27 @@ fun MainGraphFirstScreen(
 
         ) {
             Text(text = "SecondGraphFirstScreen")
-            Button(onClick = {
-                navigateToSecondScreen()
-                //                navController.navigate(Screens.Second.route)
-            }) {
+            Button(onClick = { navigateToSecondScreen() }) {
                 Text(text = "TO Second SCREEN")
-
-
             }
             var leakyObject by remember { mutableStateOf<LeakyClass?>(null) }
             val context = LocalContext.current as MainActivity
             Button(onClick =
             { leakyObject = LeakyClass(context) }) { Text("Create Leak") }
-
-
         }
     }
 }
 
-object MainGraphSecondScreenDestination : CustomNavDestinations, CustomNavAnimations by SlidingAnimations {
-    override val route = ScreensDestinationsMainGraph.MainGraph.route
+object MainGraphSecondScreenDestination : CustomNavDestinations,
+    CustomNavAnimations by SlidingAnimations {
+    override val route = ScreensDestinationsMainGraph.SecondScreen.route
     override val arguments: List<NamedNavArgument> = emptyList()
 }
 
-
-@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun MainGraphSecondScreen(navigateToThirdScreens: () -> Unit) {
     Column(modifier = Modifier) {
-       Column(
+        Column(
             modifier = Modifier
                 .fillMaxSize()
                 .background(color = Color.Red)
@@ -85,13 +72,7 @@ fun MainGraphSecondScreen(navigateToThirdScreens: () -> Unit) {
             Text(text = "SecondGraphSecondScreen")
             Button(onClick = {
                 navigateToThirdScreens()
-            }) {
-                Text(text = "TO Third SCREEN")
-
-            }
-
-
+            }) { Text(text = "TO Third SCREEN") }
         }
     }
-
 }

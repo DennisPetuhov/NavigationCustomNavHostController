@@ -25,10 +25,10 @@ sealed class ScreensDestinationsFirstGraph(val route: String) {
     data object FirstGraph : ScreensDestinationsFirstGraph("first")
     data object Second : ScreensDestinationsFirstGraph("second")
     data object Third : ScreensDestinationsFirstGraph("third")
-
 }
 
-object AuthGraphFirstScreenDestination : CustomNavDestinations, CustomNavAnimations by SlidingAnimations {
+object AuthGraphFirstScreenDestination : CustomNavDestinations,
+    CustomNavAnimations by SlidingAnimations {
     override val route = ScreensDestinationsFirstGraph.FirstGraph.route
     override val arguments: List<NamedNavArgument> = emptyList()
 }
@@ -37,34 +37,23 @@ object AuthGraphFirstScreenDestination : CustomNavDestinations, CustomNavAnimati
 @Composable
 fun AuthGraphFirstScreen(
     navigateToSecondScreen: () -> Unit,
-
-    ) {
-
+) {
     Column(modifier = Modifier) {
         Row(
             modifier = Modifier
                 .fillMaxSize()
                 .background(color = Color.Yellow)
-
         ) {
-            Button(onClick = {
-                navigateToSecondScreen()
-                //                navController.navigate(Screens.Second.route)
-            }) {
-                Text(text = "TO Second SCREEN")
-
-            }
+            Button(onClick = { navigateToSecondScreen() }) { Text(text = "TO Second SCREEN") }
             var leakyObject by remember { mutableStateOf<LeakyClass?>(null) }
             val context = LocalContext.current as MainActivity
-            Button(onClick =
-            { leakyObject = LeakyClass(context) }) { Text("Create Leak") }
-
-
+            Button(onClick = { leakyObject = LeakyClass(context) }) { Text("Create Leak") }
         }
     }
 }
 
-object AuthGraphSecondScreenDestination : CustomNavDestinations, CustomNavAnimations by SlidingAnimations {
+object AuthGraphSecondScreenDestination : CustomNavDestinations,
+    CustomNavAnimations by SlidingAnimations {
     override val route = ScreensDestinationsFirstGraph.Second.route
     override val arguments: List<NamedNavArgument> = emptyList()
 }
@@ -78,22 +67,14 @@ fun AuthGraphSecondScreen(navigateToThirdScreens: () -> Unit) {
             modifier = Modifier
                 .fillMaxSize()
                 .background(color = Color.Red)
-
         ) {
-            Button(onClick = {
-                navigateToThirdScreens()
-            }) {
-                Text(text = "TO Third SCREEN")
-
-            }
-
-
+            Button(onClick = { navigateToThirdScreens() }) { Text(text = "TO Third SCREEN") }
         }
     }
-
 }
 
-object AuthGraphThirdScreenDestination : CustomNavDestinations, CustomNavAnimations by SlidingAnimations {
+object AuthGraphThirdScreenDestination : CustomNavDestinations,
+    CustomNavAnimations by SlidingAnimations {
     override val route = ScreensDestinationsFirstGraph.Third.route
     override val arguments: List<NamedNavArgument> = emptyList()
 }
@@ -107,11 +88,7 @@ fun AuthGraphThirdScreen(navigateToFirstScreen: () -> Unit) {
                 .fillMaxSize()
                 .background(color = Color.Blue)
         ) {
-            Button(onClick = { navigateToFirstScreen() }) {
-                Text(text = "TO First SCREEN")
-
-            }
-
+            Button(onClick = { navigateToFirstScreen() }) { Text(text = "TO First SCREEN") }
         }
     }
 }
@@ -123,7 +100,6 @@ class LeakyClass(activity: MainActivity) {
 @Composable
 fun LeakyComposable(activity: MainActivity) {
     var leakyObject by remember { mutableStateOf<LeakyClass?>(null) }
-
     Button(onClick =
     { leakyObject = LeakyClass(activity) }) { Text("Create Leak") }
 }

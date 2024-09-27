@@ -24,8 +24,6 @@ fun NavGraphBuilder.authNavGraph(
         content = {
             AuthGraphSecondScreen(navigateToThirdScreens = {
                 navigateToDestination(AuthGraphThirdScreenDestination, null) {
-//                    popUpTo(route = SPLASH_SCREEN) { inclusive = true }
-
                 }
             })
         })
@@ -79,7 +77,6 @@ fun NavGraphBuilder.mainNavGraph(
                     null
                 ) {}
             })
-
         }
     )
 }

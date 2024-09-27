@@ -13,16 +13,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
-import com.example.navigationcustomnavhostcontroller.navigation.MainScreens
 import com.example.navigationcustomnavhostcontroller.navigation.builders.CustomNavHost
 import com.example.navigationcustomnavhostcontroller.navigation.builders.authNavGraph
 import com.example.navigationcustomnavhostcontroller.navigation.builders.mainNavGraph
@@ -54,17 +51,6 @@ private fun MainEnter() {
                 .padding(100.dp)
                 .size(width = 100.dp, height = 100.dp)
         )
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(300.dp)
-                .background(color = Color.Magenta)
-        ) {
-            Button(onClick = { navController.navigate(MainScreens.FirstNavGraph.route) })
-            { Text(text = "TO first GRAPH") }
-            Button(onClick = { navController.navigate(MainScreens.SecondNavGraph.route) }
-            ) { Text(text = "TO second GRAPH") }
-        }
         Row(
             modifier = Modifier
                 .fillMaxWidth()

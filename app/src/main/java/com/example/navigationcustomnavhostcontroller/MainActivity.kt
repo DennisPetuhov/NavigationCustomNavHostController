@@ -15,16 +15,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
-import com.example.navigationcustomnavhostcontroller.navigation.builders.CustomNavHost
-import com.example.navigationcustomnavhostcontroller.navigation.builders.authNavGraph
-import com.example.navigationcustomnavhostcontroller.navigation.builders.mainNavGraph
-import com.example.navigationcustomnavhostcontroller.navigation.rememberCustomNavController
-import com.example.navigationcustomnavhostcontroller.ui.screens.AuthGraphFirstScreenDestination
+import com.example.navigationcustomnavhostcontroller.navigation.builders.MainAuthNavHost
+import com.example.navigationcustomnavhostcontroller.navigation.builders.rememberCustomNavController
 import com.example.navigationcustomnavhostcontroller.ui.theme.NavigationCustomNavHostControllerTheme
 
 class MainActivity : ComponentActivity() {
@@ -34,7 +30,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             NavigationCustomNavHostControllerTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    MainEnter()
+                    AppCustomNavigation()
                 }
             }
         }
@@ -42,7 +38,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-private fun MainEnter() {
+private fun AppCustomNavigation() {
     val navController = rememberNavController()
     val customNavController = rememberCustomNavController(navController)
     Column(modifier = Modifier) {
@@ -57,19 +53,7 @@ private fun MainEnter() {
                 .height(300.dp)
                 .background(color = Color.Green)
         ) {
-            CustomNavHost(
-                navController = navController,
-                startDestination = remember { AuthGraphFirstScreenDestination }
-            ) {
-                authNavGraph(
-                    navigateToDestination = customNavController::navigate,
-                    navigateByDeepLink = customNavController::navigate
-                )
-                mainNavGraph(
-                    navigateToDestination = customNavController::navigate,
-                    navigateByDeepLink = customNavController::navigate
-                )
-            }
+            MainAuthNavHost(navController, customNavController)
         }
     }
 }

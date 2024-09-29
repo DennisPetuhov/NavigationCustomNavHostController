@@ -3,17 +3,18 @@ package com.example.navigationcustomnavhostcontroller.navigation.builders
 import android.net.Uri
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptionsBuilder
+import com.example.navigationcustomnavhostcontroller.navigation.builders.mainBuilders.customComposable
+import com.example.navigationcustomnavhostcontroller.navigation.destinations.AuthGraphFirstScreenDestination
+import com.example.navigationcustomnavhostcontroller.navigation.destinations.AuthGraphSecondScreenDestination
+import com.example.navigationcustomnavhostcontroller.navigation.destinations.AuthGraphThirdScreenDestination
+import com.example.navigationcustomnavhostcontroller.navigation.destinations.BottomGraphDestination
+import com.example.navigationcustomnavhostcontroller.navigation.destinations.BottomGraphFirstScreenDestination
 import com.example.navigationcustomnavhostcontroller.navigation.destinations.CustomNavDestinations
 import com.example.navigationcustomnavhostcontroller.ui.screens.AuthGraphFirstScreen
 import com.example.navigationcustomnavhostcontroller.ui.screens.AuthGraphSecondScreen
 import com.example.navigationcustomnavhostcontroller.ui.screens.AuthGraphThirdScreen
-import com.example.navigationcustomnavhostcontroller.ui.screens.AuthGraphFirstScreenDestination
-import com.example.navigationcustomnavhostcontroller.ui.screens.AuthGraphSecondScreenDestination
-import com.example.navigationcustomnavhostcontroller.ui.screens.AuthGraphThirdScreenDestination
-import com.example.navigationcustomnavhostcontroller.ui.screens.MainGraphFirstScreen
-import com.example.navigationcustomnavhostcontroller.ui.screens.MainGraphFirstScreenDestination
-import com.example.navigationcustomnavhostcontroller.ui.screens.MainGraphSecondScreen
-import com.example.navigationcustomnavhostcontroller.ui.screens.MainGraphSecondScreenDestination
+import com.example.navigationcustomnavhostcontroller.ui.screens.BottomBarScreen
+import com.example.navigationcustomnavhostcontroller.ui.screens.BottomGraphFirstScreen
 
 fun NavGraphBuilder.authNavGraph(
     navigateToDestination: (CustomNavDestinations, String?, (NavOptionsBuilder.() -> Unit)?) -> Unit,
@@ -43,9 +44,9 @@ fun NavGraphBuilder.authNavGraph(
     customComposable(
         destinations = AuthGraphThirdScreenDestination,
         content = {
-            AuthGraphThirdScreen(navigateToFirstScreen = {
+            AuthGraphThirdScreen(navigateToBottomNavigation = {
                 navigateToDestination(
-                    MainGraphFirstScreenDestination,
+                    BottomGraphDestination,
                     null
                 ) {}
             })
@@ -54,29 +55,21 @@ fun NavGraphBuilder.authNavGraph(
     )
 }
 
-fun NavGraphBuilder.mainNavGraph(
+fun NavGraphBuilder.mainGraph(
     navigateToDestination: (CustomNavDestinations, String?, (NavOptionsBuilder.() -> Unit)?) -> Unit,
     navigateByDeepLink: (Uri, (NavOptionsBuilder.() -> Unit)?) -> Unit,
 ) {
-
-    customComposable(
-        destinations = MainGraphFirstScreenDestination,
-        content = {
-            MainGraphFirstScreen(navigateToSecondScreen =  {
-                navigateToDestination(MainGraphSecondScreenDestination, null) {
-                }
-            })
-        })
-
-    customComposable(
-        destinations = MainGraphFirstScreenDestination,
-        content = {
-            MainGraphSecondScreen(navigateToThirdScreens =  {
-                navigateToDestination(
-                    AuthGraphSecondScreenDestination,
-                    null
-                ) {}
-            })
-        }
-    )
+    customComposable(destinations = BottomGraphDestination, content = { BottomBarScreen() })
 }
+
+fun NavGraphBuilder.bottomGraph(
+    navigateToDestination: (CustomNavDestinations, String?, (NavOptionsBuilder.() -> Unit)?) -> Unit,
+    navigateByDeepLink: (Uri, (NavOptionsBuilder.() -> Unit)?) -> Unit,
+) {
+    customComposable(
+        destinations = BottomGraphFirstScreenDestination,
+        content = {
+            BottomGraphFirstScreen(navigateToSecondScreen = {})
+        })
+}
+

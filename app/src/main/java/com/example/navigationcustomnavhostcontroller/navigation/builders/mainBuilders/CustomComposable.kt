@@ -1,4 +1,4 @@
-package com.example.navigationcustomnavhostcontroller.navigation.builders
+package com.example.navigationcustomnavhostcontroller.navigation.builders.mainBuilders
 
 import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.runtime.Composable

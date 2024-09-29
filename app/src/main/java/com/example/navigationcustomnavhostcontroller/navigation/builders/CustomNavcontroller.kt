@@ -1,4 +1,4 @@
-package com.example.navigationcustomnavhostcontroller.navigation
+package com.example.navigationcustomnavhostcontroller.navigation.builders
 
 import android.net.Uri
 import androidx.compose.runtime.Composable
@@ -7,7 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.navOptions
 import com.example.navigationcustomnavhostcontroller.navigation.destinations.CustomNavDestinations
-import com.example.navigationcustomnavhostcontroller.ui.screens.ScreensDestinationsFirstGraph
+import com.example.navigationcustomnavhostcontroller.navigation.destinations.ScreensAuthGraph
 
 @Composable
 fun rememberCustomNavController(navController: NavHostController): CustomNavController {
@@ -22,7 +22,7 @@ class CustomNavController(private val navController: NavHostController) {
         route: String? = null,
         navOptionsBuilder: (NavOptionsBuilder.() -> Unit)? = null,
     ) {
-        navController.navigate(route ?: destinations?.route ?: ScreensDestinationsFirstGraph.FirstGraph.route) {
+        navController.navigate(route ?: destinations?.route ?: ScreensAuthGraph.First.route) {
             navOptionsBuilder?.invoke(this)
         }
     }

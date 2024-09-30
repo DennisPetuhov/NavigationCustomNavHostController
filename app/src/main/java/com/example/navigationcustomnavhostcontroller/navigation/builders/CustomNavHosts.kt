@@ -1,20 +1,21 @@
 package com.example.navigationcustomnavhostcontroller.navigation.builders
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
-import com.example.navigationcustomnavhostcontroller.navigation.builders.mainBuilders.BottomNavHost
 import com.example.navigationcustomnavhostcontroller.navigation.builders.mainBuilders.CustomNavHost
 import com.example.navigationcustomnavhostcontroller.navigation.destinations.AuthGraphFirstScreenDestination
-import com.example.navigationcustomnavhostcontroller.navigation.destinations.BottomGraphFirstScreenDestination
 
 
 @Composable
-fun MainAuthNavHost(
+fun AuthNavHost(
     navController: NavHostController,
     customNavController: CustomNavController
 ) {
+    var selectedItem = remember { mutableIntStateOf(0)}
     CustomNavHost(
         navController = navController,
         startDestination = remember { AuthGraphFirstScreenDestination }
@@ -23,21 +24,27 @@ fun MainAuthNavHost(
             navigateToDestination = customNavController::navigate,
             navigateByDeepLink = customNavController::navigate
         )
-        mainGraph(
+        bottomNavGraph(
+            selectedItem = selectedItem,
             navigateToDestination = customNavController::navigate,
             navigateByDeepLink = customNavController::navigate
         )
+
+//        mainGraph(navController, customNavController,
+//            navigateToDestination = customNavController::navigate,
+//            navigateByDeepLink = customNavController::navigate
+//        )
     }
 }
 
-@Composable
-fun MainBottomNavHost(customNavController: CustomNavController) {
-    BottomNavHost(
-        navController = rememberNavController(),
-        startDestination = remember { BottomGraphFirstScreenDestination }) {
-        bottomGraph(
-            navigateToDestination = customNavController::navigate,
-            navigateByDeepLink = customNavController::navigate
-        )
-    }
-}
+//@Composable
+//fun NavBarNavHost(customNavController: CustomNavController) {
+//    CustomNavHost(
+//        navController = rememberNavController(),
+//        startDestination = remember { BottomGraphFirstScreenDestination }) {
+//        bottomGraph(
+//            navigateToDestination = customNavController::navigate,
+//            navigateByDeepLink = customNavController::navigate
+//        )
+//    }
+//}

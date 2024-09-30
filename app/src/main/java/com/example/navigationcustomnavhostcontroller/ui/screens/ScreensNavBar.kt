@@ -8,55 +8,91 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableIntState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.navigation.compose.rememberNavController
-import com.example.navigationcustomnavhostcontroller.navigation.builders.MainBottomNavHost
-import com.example.navigationcustomnavhostcontroller.navigation.builders.rememberCustomNavController
+import com.example.navigationcustomnavhostcontroller.navigation.destinations.CustomNavDestinations
 import com.example.navigationcustomnavhostcontroller.ui.nav_bar.NavigationBarSample
 
 @Composable
-fun BottomBarScreen() {
-    val navController = rememberNavController()
-    val customNavController = rememberCustomNavController(navController)
-    Scaffold(bottomBar = { NavigationBarSample() }) { paddingValuues ->
-        MainBottomNavHost(
-            customNavController = customNavController
+fun NavBarFirstScreen(
+    modifier: Modifier = Modifier,
+    navigateToSecondScreen: () -> Unit,
+    navigateByNavBar: (CustomNavDestinations) -> Unit,
+    selectedItem: MutableIntState,
+
+    ) {
+    Scaffold(bottomBar = {
+        NavigationBarSample(
+            navigateToSecondScreen,
+            navigateByNavBar = navigateByNavBar,selectedItem = selectedItem
         )
-    }
-}
+    }) { paddingValuues ->
 
 
-@Composable
-fun BottomGraphFirstScreen(modifier: Modifier = Modifier, navigateToSecondScreen: () -> Unit) {
-    Column(modifier = Modifier) {
-        Row(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(color = Color.Cyan)
+        Column(modifier = Modifier) {
+            Row(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(color = Color.Cyan)
 
-        ) {
-            Text(text = "SecondGraphFirstScreen")
-            Button(onClick = { navigateToSecondScreen() }) {
-                Text(text = "TO Second SCREEN")
+            ) {
+                Text(text = "NavBarFirstScreen")
+                Button(onClick = { navigateToSecondScreen() }) {
+                    Text(text = "TO Second SCREEN")
+                }
             }
         }
     }
 }
 
 @Composable
-fun MainGraphSecondScreen(navigateToThirdScreens: () -> Unit) {
-    Column(modifier = Modifier) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(color = Color.Red)
+fun NavBarSecondScreen(
+    navigateToThirdScreens: () -> Unit,
+    navigateByNavBar: (CustomNavDestinations) -> Unit,
+    selectedItem:MutableIntState,
+) {
+    Scaffold(bottomBar = {
+        NavigationBarSample(
+            navigateToThirdScreens,
+            navigateByNavBar = navigateByNavBar,selectedItem = selectedItem)
+    }) { paddingValuues ->
+        Column(modifier = Modifier) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(color = Color.Red)
 
-        ) {
-            Text(text = "SecondGraphSecondScreen")
-            Button(onClick = {
-                navigateToThirdScreens()
-            }) { Text(text = "TO Third SCREEN") }
+            ) {
+                Text(text = "NavBarSecondScreen")
+                Button(onClick = {
+                    navigateToThirdScreens()
+                }) { Text(text = "TO Third SCREEN") }
+            }
+        }
+    }
+}
+
+@Composable
+fun NavBarThirdScreen(
+    navigateToAuth: () -> Unit,
+    navigateByNavBar: (CustomNavDestinations) -> Unit,
+    selectedItem:MutableIntState,
+) {
+    Scaffold(bottomBar = {
+        NavigationBarSample(
+            navigateToAuth,
+            navigateByNavBar = navigateByNavBar,selectedItem = selectedItem)
+    }) { paddingValuues ->
+        Column(modifier = Modifier) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(color = Color.Magenta)
+            ) {
+                Text(text = "NavBarThirdScreen")
+                Button(onClick = { navigateToAuth() }) { Text(text = "navigateToAuth") }
+            }
         }
     }
 }

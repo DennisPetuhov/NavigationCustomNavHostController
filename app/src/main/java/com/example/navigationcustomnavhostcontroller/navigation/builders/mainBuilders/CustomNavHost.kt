@@ -18,7 +18,6 @@ fun CustomNavHost(
     animations: CustomNavAnimations = SlidingAnimations,
     builder: NavGraphBuilder.() -> Unit,
 ) {
-
     NavHost(
         modifier = Modifier.fillMaxSize(),
         navController = navController,

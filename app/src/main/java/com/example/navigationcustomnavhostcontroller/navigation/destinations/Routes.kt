@@ -4,28 +4,28 @@ import androidx.navigation.NamedNavArgument
 import com.example.navigationcustomnavhostcontroller.navigation.animations.CustomNavAnimations
 import com.example.navigationcustomnavhostcontroller.navigation.animations.SlidingAnimations
 
-
-object BottomGraphDestination : CustomNavDestinations,
-    CustomNavAnimations by SlidingAnimations {
-    override val route = "bottom_nav_graph"
-    override val arguments: List<NamedNavArgument> = emptyList()
-}
-
-object BottomGraphSecondScreenDestination : CustomNavDestinations,
+object NavBarSecondScreenDestination : CustomNavDestinations,
     CustomNavAnimations by SlidingAnimations {
     override val route = ScreensDestinationsBottomBarGraph.SecondScreen.route
     override val arguments: List<NamedNavArgument> = emptyList()
 }
 
-object BottomGraphFirstScreenDestination : CustomNavDestinations,
+object NavBarFirstScreenDestination : CustomNavDestinations,
     CustomNavAnimations by SlidingAnimations {
     override val route = ScreensDestinationsBottomBarGraph.FirstScreen.route
     override val arguments: List<NamedNavArgument> = emptyList()
 }
+object NavBarThirdScreenDestination : CustomNavDestinations,
+    CustomNavAnimations by SlidingAnimations {
+    override val route = ScreensDestinationsBottomBarGraph.ThirdScreen.route
+    override val arguments: List<NamedNavArgument> = emptyList()
+}
+
 
 sealed class ScreensDestinationsBottomBarGraph(val route: String) {
     data object FirstScreen : ScreensDestinationsBottomBarGraph("first_nav_bar")
     data object SecondScreen : ScreensDestinationsBottomBarGraph("second_nav_bar")
+    data object ThirdScreen : ScreensDestinationsBottomBarGraph("third_nav_bar")
 }
 
 
@@ -53,5 +53,3 @@ object AuthGraphThirdScreenDestination : CustomNavDestinations,
     override val route = ScreensAuthGraph.Third.route
     override val arguments: List<NamedNavArgument> = emptyList()
 }
-
-
